@@ -3,81 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance & Fitness Studio</title>
+    <title>Class Schedule | Dance & Fitness Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .day {
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            text-align: center;
+            min-height: 80px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .class-event {
+            background: #f472b6;
+            color: white;
+            padding: 4px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 p-6">
 
-    <!-- Hero Section -->
-    <header class="bg-cover bg-center h-screen flex items-center justify-center text-white text-center" style="background-image: url('https://source.unsplash.com/1600x900/?dance,fitness');">
-        <div class="bg-black bg-opacity-50 p-8 rounded-lg">
-            <h1 class="text-5xl font-bold">Move, Dance, and Stay Fit!</h1>
-            <p class="text-lg mt-4">Join our dance and fitness programs to transform your health and well-being.</p>
-            <a href="#services" class="mt-6 inline-block bg-pink-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-pink-600">Get Started</a>
-        </div>
+    <!-- Header -->
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">Class Schedule</h1>
+        <p class="text-gray-600 mt-2">Click on a class to register.</p>
     </header>
 
-    <!-- Services Section -->
-    <section id="services" class="py-16 px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-800">Our Programs</h2>
-        <p class="text-gray-600 mt-4">We offer a variety of dance and fitness classes for all skill levels.</p>
-        
-        <div class="grid md:grid-cols-3 gap-8 mt-8">
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-2xl font-semibold text-pink-500">Zumba</h3>
-                <p class="text-gray-600 mt-2">A fun and energetic dance workout to keep you fit.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-2xl font-semibold text-pink-500">Hip-Hop Dance</h3>
-                <p class="text-gray-600 mt-2">Master cool moves and improve your rhythm.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-2xl font-semibold text-pink-500">Yoga & Stretching</h3>
-                <p class="text-gray-600 mt-2">Improve flexibility and find inner balance.</p>
-            </div>
+    <!-- Calendar Section -->
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4" id="monthYear"></h2>
+        <div class="calendar bg-gray-200 p-4 rounded-lg"></div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h3 class="text-2xl font-bold text-gray-800">Register for Class</h3>
+            <p id="selectedClass" class="mt-2 text-gray-600"></p>
+            <input id="nameInput" type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg mt-4">
+            <input id="emailInput" type="email" placeholder="Your Email" class="w-full p-3 border rounded-lg mt-4">
+            <button onclick="register()" class="bg-pink-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-pink-600 mt-4 w-full">Register</button>
+            <button onclick="closeModal()" class="text-gray-500 mt-2 block">Cancel</button>
         </div>
-    </section>
+    </div>
 
-    <!-- Testimonials Section -->
-    <section class="bg-gray-200 py-16 px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-800">What Our Members Say</h2>
-        <div class="mt-8 max-w-3xl mx-auto">
-            <div class="bg-white p-6 rounded-lg shadow">
-                <p class="text-gray-700 italic">"I love the energy of the Zumba classes! The trainers are amazing and keep me motivated."</p>
-                <h4 class="mt-4 text-pink-500 font-semibold">- Sarah M.</h4>
-            </div>
-        </div>
-    </section>
+    <!-- JavaScript for Calendar -->
+    <script>
+        const classes = [
+            { name: "Zumba Dance", date: "2025-03-05" },
+            { name: "Hip-Hop Basics", date: "2025-03-06" },
+            { name: "Yoga & Flexibility", date: "2025-03-07" },
+            { name: "Salsa Night", date: "2025-03-08" },
+            { name: "Cardio Dance", date: "2025-03-09" },
+            { name: "Ballet Basics", date: "2025-03-10" },
+            { name: "Pilates Core Strength", date: "2025-03-11" },
+            { name: "Freestyle Dance", date: "2025-03-12" },
+            { name: "Latin Dance", date: "2025-03-13" },
+            { name: "Full-Body Workout", date: "2025-03-14" }
+        ];
 
-    <!-- Call to Action -->
-    <section class="bg-pink-500 text-white py-16 text-center">
-        <h2 class="text-4xl font-bold">Ready to Dance & Get Fit?</h2>
-        <p class="mt-4 text-lg">Join us today and start your journey to a healthier lifestyle!</p>
-        <a href="#contact" class="mt-6 inline-block bg-white text-pink-500 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-200">Join Now</a>
-    </section>
+        function generateCalendar(year, month) {
+            const calendar = document.querySelector(".calendar");
+            calendar.innerHTML = "";
+            document.getElementById("monthYear").innerText = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-800">Get in Touch</h2>
-        <p class="text-gray-600 mt-4">Have questions? Contact us today!</p>
-        
-        <form class="max-w-lg mx-auto mt-8 bg-white p-6 rounded-lg shadow">
-            <input type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg mb-4">
-            <input type="email" placeholder="Your Email" class="w-full p-3 border rounded-lg mb-4">
-            <textarea placeholder="Your Message" class="w-full p-3 border rounded-lg mb-4"></textarea>
-            <button type="submit" class="bg-pink-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-pink-600">Send Message</button>
-        </form>
-    </section>
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center py-4">
-        <p>&copy; 2025 Dance & Fitness Studio. All Rights Reserved.</p>
-    </footer>
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement("div");
+                calendar.appendChild(emptyCell);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement("div");
+                cell.classList.add("day");
+                cell.innerHTML = `<span class="block font-bold text-gray-700">${day}</span>`;
+
+                const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+                const classOnDay = classes.find(cls => cls.date === formattedDate);
+
+                if (classOnDay) {
+                    const event = document.createElement("div");
+                    event.classList.add("class-event");
+                    event.innerText = classOnDay.name;
+                    event.onclick = () => openModal(classOnDay.name, classOnDay.date);
+                    cell.appendChild(event);
+                }
+
+                calendar.appendChild(cell);
+            }
+        }
+
+        function openModal(className, classDate) {
+            document.getElementById("selectedClass").innerText = `Register for: ${className} on ${classDate}`;
+            document.getElementById("registerModal").classList.remove("hidden");
+            document.getElementById("registerModal").setAttribute("data-class-name", className);
+            document.getElementById("registerModal").setAttribute("data-class-date", classDate);
+        }
+
+        function closeModal() {
+            document.getElementById("registerModal").classList.add("hidden");
+        }
+
+        function register() {
+            const name = document.getElementById("nameInput").value.trim();
+            const email = document.getElementById("emailInput").value.trim();
+            const className = document.getElementById("registerModal").getAttribute("data-class-name");
+            const classDate = document.getElementById("registerModal").getAttribute("data-class-date");
+
+            if (name === "" || email === "") {
+                alert("Please enter your name and email.");
+                return;
+            }
+
+            alert(`Thank you, ${name}! You have registered for ${className} on ${classDate}.`);
+
+            document.getElementById("nameInput").value = "";
+            document.getElementById("emailInput").value = "";
+            closeModal();
+        }
+
+        generateCalendar(2025, 2); // March 2025
+    </script>
 
 </body>
 </html>
