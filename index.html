@@ -14,9 +14,26 @@
             padding: 0;
         }
         header {
-            padding: 40px;
-            font-size: 26px;
+            padding: 20px;
+            font-size: 24px;
             font-weight: bold;
+            background: black;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 20px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #ffccff;
         }
         .hero {
             background: url("your-photo.jpg") center/cover;
@@ -30,6 +47,7 @@
         }
         .section {
             padding: 50px 20px;
+            scroll-margin-top: 80px;
         }
         .contact-form input, .contact-form textarea {
             width: 80%;
@@ -66,17 +84,23 @@
 
     <header>Luci Dance & Fitness - Hong Kong</header>
 
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#news">News</a>
+    </nav>
+
     <div class="hero">
         <div>Fun • Health • Creativity • Energy</div>
     </div>
 
-    <div class="section">
+    <div id="services" class="section">
         <h2>What We Offer</h2>
         <p>Join our dance and fitness classes in Hong Kong! Connect, move, and feel amazing. 💃✨</p>
         <p>Follow us on <a href="https://www.instagram.com/luci_dance/" target="_blank">@luci_dance</a></p>
     </div>
 
-    <div class="section">
+    <div id="contact" class="section">
         <h2>Contact Us</h2>
         <form class="contact-form">
             <input type="text" placeholder="Your Name" required>
@@ -87,7 +111,7 @@
         <p>📞 WhatsApp: +852 91700117</p>
     </div>
 
-    <div class="section">
+    <div id="news" class="section">
         <h2>Latest News</h2>
         <div class="blog-post">
             <h3>🎶 Dance Musical - International Women's Day</h3>
